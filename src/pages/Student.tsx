@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from "react";
 import { motion } from "framer-motion";
-import { Search, Bell } from "lucide-react";
+import { Search } from "lucide-react";
 
 interface Student {
   id: string;

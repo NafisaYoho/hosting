@@ -7,7 +7,7 @@ import {
   ClockIcon,
   BookOpenIcon,
   UserCircleIcon,
-  Cog6ToothIcon,
+ 
   Squares2X2Icon,
   MagnifyingGlassIcon,
   XMarkIcon,
@@ -46,7 +46,7 @@ export default function AdminNavbar({ route, setRoute }: AdminNavbarProps) {
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
-  const [notificationCount, setNotificationCount] = useState(10);
+  const [notificationCount] = useState(10);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const [notifications] = useState(
@@ -56,10 +56,6 @@ export default function AdminNavbar({ route, setRoute }: AdminNavbarProps) {
     }))
   );
 
-  const handleNotificationClick = (notification: { title: string; time: string }) => {
-    navigate("/notifications"); // replace with your actual notification route
-    setShowNotifications(false);
-  };
 
 const menuItems = [
   { icon: <Squares2X2Icon className="w-7 h-7" />, key: "home", label: "Dashboard", path: "/Home" },

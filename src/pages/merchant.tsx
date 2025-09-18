@@ -1,41 +1,71 @@
-import React, { useState, useMemo } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import {
-  Users,
-  Building2,
-  BookOpen,
-  CreditCard,
-  CheckCircle2,
-  XCircle,
-  Bell,
-  Search,
-  ChevronRight,
-} from "lucide-react";
+import { useState, useMemo } from "react";
+import { motion } from "framer-motion";
+import { Search } from "lucide-react";
 
-const institutes = [
+// Types
+type Institute = {
+  id: number;
+  name: string;
+  branches: number;
+  status: string;
+};
+
+type Merchant = {
+  id: number;
+  name: string;
+  feePaid: boolean;
+  pendingCourses: number;
+  pendingDiscounts: number;
+};
+
+type Course = {
+  id: number;
+  name: string;
+  fee: number;
+  duration: string;
+  status: string;
+};
+
+type Discount = {
+  id: number;
+  name: string;
+  status: string;
+  merchant: string;
+};
+
+// Dummy Data
+const institutes: Institute[] = [
   { id: 1, name: "ABC Institute", branches: 3, status: "Active" },
   { id: 2, name: "XYZ Institute", branches: 2, status: "Pending Approval" },
 ];
 
-const merchants = [
+const merchants: Merchant[] = [
   { id: 1, name: "Merchant A", feePaid: true, pendingCourses: 2, pendingDiscounts: 1 },
   { id: 2, name: "Merchant B", feePaid: false, pendingCourses: 1, pendingDiscounts: 0 },
 ];
 
-const courses = [
+const courses: Course[] = [
   { id: 1, name: "B.Tech CSE", fee: 12000, duration: "4 Years", status: "Pending Approval" },
   { id: 2, name: "MBA", fee: 15000, duration: "2 Years", status: "Approved" },
 ];
 
-const discounts = [
+const discounts: Discount[] = [
   { id: 1, name: "Summer Sale", status: "Pending Approval", merchant: "Merchant A" },
   { id: 2, name: "Festive Offer", status: "Approved", merchant: "Merchant B" },
 ];
 
-const TabButton = ({ value, active, onClick, children }) => (
+// Reusable Tab Button
+type TabButtonProps = {
+  value: string;
+  active: boolean;
+  onClick: (val: string) => void;
+  children: React.ReactNode;
+};
+
+const TabButton = ({ value, active, onClick, children }: TabButtonProps) => (
   <button
     onClick={() => onClick(value)}
-    className={`px-4 py-2 rounded-xl text-sm font-medium ${
+    className={`px-4 py-2 rounded-xl text-sm font-medium transition ${
       active ? "bg-pink-600 text-white" : "bg-gray-800/60 text-gray-300 hover:bg-gray-800/80"
     }`}
   >
@@ -57,17 +87,14 @@ export default function InstitutePage() {
       {/* Topbar */}
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold text-pink-600">Institute / Merchant Management</h1>
-        <div className="flex items-center gap-3">
-          <div className="relative">
-            <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-            <input
-              className="pl-9 pr-3 py-2 border border-gray-700 rounded-xl text-sm bg-gray-900/70 text-white placeholder-gray-400 backdrop-blur-md focus:ring-pink-600 focus:border-pink-600"
-              placeholder="Search Institutes..."
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-            />
-          </div>
-         
+        <div className="relative">
+          <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+          <input
+            className="pl-9 pr-3 py-2 border border-gray-700 rounded-xl text-sm bg-gray-900/70 text-white placeholder-gray-400 backdrop-blur-md focus:ring-pink-600 focus:border-pink-600"
+            placeholder="Search Institutes..."
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+          />
         </div>
       </div>
 
@@ -130,14 +157,12 @@ export default function InstitutePage() {
                   <p>Duration: {c.duration}</p>
                   <p>Status: {c.status}</p>
                 </div>
-                <div className="flex gap-2">
-                  {c.status === "Pending Approval" && (
-                    <>
-                      <button className="bg-pink-600 px-3 py-1 rounded-xl">Approve</button>
-                      <button className="bg-gray-700 px-3 py-1 rounded-xl">Reject</button>
-                    </>
-                  )}
-                </div>
+                {c.status === "Pending Approval" && (
+                  <div className="flex gap-2">
+                    <button className="bg-pink-600 px-3 py-1 rounded-xl">Approve</button>
+                    <button className="bg-gray-700 px-3 py-1 rounded-xl">Reject</button>
+                  </div>
+                )}
               </div>
             ))}
           </div>
@@ -166,14 +191,12 @@ export default function InstitutePage() {
                   <p>Merchant: {d.merchant}</p>
                   <p>Status: {d.status}</p>
                 </div>
-                <div className="flex gap-2">
-                  {d.status === "Pending Approval" && (
-                    <>
-                      <button className="bg-pink-600 px-3 py-1 rounded-xl">Approve</button>
-                      <button className="bg-gray-700 px-3 py-1 rounded-xl">Reject</button>
-                    </>
-                  )}
-                </div>
+                {d.status === "Pending Approval" && (
+                  <div className="flex gap-2">
+                    <button className="bg-pink-600 px-3 py-1 rounded-xl">Approve</button>
+                    <button className="bg-gray-700 px-3 py-1 rounded-xl">Reject</button>
+                  </div>
+                )}
               </div>
             ))}
           </div>

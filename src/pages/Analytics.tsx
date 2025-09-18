@@ -1,4 +1,4 @@
-import React from "react";
+
 import {
   BarChart,
   Bar,
@@ -96,7 +96,7 @@ export default function Analytics() {
                 label
                 dataKey="value"
               >
-                {pieData.map((entry, index) => (
+                {pieData.map((_entry, index) => (
                   <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                 ))}
               </Pie>
