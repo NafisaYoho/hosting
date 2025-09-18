@@ -1,0 +1,20 @@
+navbar{
+    background-color: black;
+    
+}
+icon{
+    color: white;
+}
+body {
+  margin: 0;
+  padding: 0;
+  background-image: url('https://wallpapers.com/images/hd/pink-black-1920-x-900-background-qh6ozxiwml3psv7k.jpg');
+  background-size: cover;        /* cover the whole screen */
+  background-position: center;   /* center the image */
+  background-repeat: no-repeat;  /* don’t repeat */
+  background-attachment: fixed;  /* keep it fixed on scroll */
+  height: 100vh;
+  width: 100vw;
+  font-family: 'Poppins';
+  overflow-x: hidden;            /* prevent horizontal scroll */
+}
